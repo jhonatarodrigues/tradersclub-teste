@@ -4,9 +4,10 @@ import { loadSuccess, loadError } from './actions';
 
 export function* load() {
   try {
-    const response = yield call(api.get, 'carlist/');
+    // -- chamada de api
+    const response = yield call(api.get, '');
 
-    yield put(loadSuccess(response.data));
+    // yield put(loadSuccess(response.data));
   } catch (err) {
     yield put(loadError());
   }

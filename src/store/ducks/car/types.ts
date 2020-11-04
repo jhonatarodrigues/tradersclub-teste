@@ -10,7 +10,13 @@ export enum CarTypes {
 // -- data types
 export interface Car {
   id: number,
-  name: string,
+  title: string,
+  model: string,
+  brand: string,
+  year: number,
+  color: string,
+  km: number,
+  price: number,
 }
 
 // -- state Type

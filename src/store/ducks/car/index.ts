@@ -1,11 +1,27 @@
 import { Reducer } from 'redux';
 import { CarsState, CarTypes } from './types';
 
-const INITIAL_SATATE: CarsState = {
+export const INITIAL_SATATE: CarsState = {
   data: [
     {
       id: 1,
-      name: 'teste de info',
+      title: 'Celta Azul 2005 Ar e Direção',
+      model: 'Celta',
+      brand: 'Chevrolet',
+      year: 2005,
+      color: 'Azul marinho',
+      km: 106041,
+      price: 11772.22,
+    },
+    {
+      id: 2,
+      title: 'Celta Preto 2003',
+      model: 'Celta',
+      brand: 'Chevrolet',
+      year: 2005,
+      color: 'Preta',
+      km: 209022,
+      price: 8762.22,
     },
   ],
   error: false,

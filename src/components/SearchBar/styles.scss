@@ -22,6 +22,10 @@
       color: $colorWhite;
     };
   }
+  .linkExpand{
+    display: flex;
+    align-items: stretch;
+  }
   button{
     padding: em(20) em(42);
     background-color: $colorWhite;

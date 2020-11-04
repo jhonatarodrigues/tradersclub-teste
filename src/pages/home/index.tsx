@@ -25,30 +25,48 @@ interface DispatchProps {
 type Props = StateProps & DispatchProps;
 
 class Home extends Component<Props> {
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {
+
+    };
+  }
+
   componentDidMount() {
     // const { loadRequest } = this.props;
 
     // loadRequest();
   }
 
-  listCar = () => (
+  listCar = (car: Car) => (
     <div>
       <Link to="/cadastrar">
         <div className="itemList">
           <div className="line">
             <div className="carName">
-              Celta aa
+              {car.title}
             </div>
             <div className="preco">
-              R$ 10.000
+              {`R$ ${car.price}`}
             </div>
           </div>
           <div className="line">
             <div className="carInfo">
-              Celta • Chevrolet • 106.401 KM
+              {car.model}
+              {' '}
+              •
+              {' '}
+              {car.brand}
+              {' '}
+              •
+              {' '}
+              {car.km}
+              {' '}
+              KM
             </div>
             <div className="ano">
-              2009
+              {car.year}
             </div>
           </div>
 
@@ -70,19 +88,27 @@ class Home extends Component<Props> {
     </div>
   )
 
-  render() {
+  renderResult() {
     const { car } = this.props;
+    console.log(' === car', car);
 
+    if (car.length === 0) {
+      return (this.listEmpty());
+    }
+
+    return (
+      car.map((item) => this.listCar(item))
+    );
+  }
+
+  render() {
     return (
       <div className="container">
         <LeftBar />
         <div className="containerRight">
           <SearchBar />
           <div className="containerResults">
-            {/* {this.listEmpty()} */}
-            {this.listCar()}
-            {this.listCar()}
-            {this.listCar()}
+            {this.renderResult()}
 
           </div>
         </div>
