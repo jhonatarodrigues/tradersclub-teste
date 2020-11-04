@@ -1,4 +1,6 @@
 @import "variables.scss";
+@import "reset.scss";
+@import 'mixins.scss';
 
 // -- fonts
 .fontRoboto{
@@ -11,9 +13,20 @@
 }
 
 
+// -- global css
 body {
-  background-color: $colorBlue;
+  background: $colorBlue;
   color: $colorWhite;
   @extend .fontRoboto;
-  font-size: 10px
+  font-size: 10px;
+  margin: 0;
+  padding: 0;
+}
+.container{
+  display: flex;
+  flex-direction: row;
+
+  @include responsive($lg){
+		flex-direction: row;
+	}
 }

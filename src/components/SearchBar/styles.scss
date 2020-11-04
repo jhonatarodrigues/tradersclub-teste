@@ -1,0 +1,39 @@
+@import '../../styles/global.scss';
+
+
+.searchBar {
+  background-color: $colorBlueNavy;
+  padding: em(60) em(150);
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  input{
+    width: 100%;
+    height: em(90);
+    background: none;
+    border: 1px solid $colorWhite;
+    border-radius: 0.4rem;
+    padding: em(20);
+    font-size: em(30);
+    color: $colorWhite;
+    margin-right: em(35);
+    @extend .fontRoboto;
+    @include placeholder() {
+      color: $colorWhite;
+    };
+  }
+  button{
+    padding: em(20) em(42);
+    background-color: $colorWhite;
+    border: none;
+    border-radius: 0.4rem;
+    font-size: em(30);
+    @extend .fontRoboto;
+    color: #000;
+    @include animate(.2);
+    &:hover{
+      @include animate(.4);
+      opacity: .8;
+    }
+  }
+}

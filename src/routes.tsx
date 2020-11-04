@@ -5,11 +5,13 @@ import {
 
 // -- pages
 import Home from './pages/home';
+import DetailsPage from './pages/details';
 
 const Routes = () => (
   <BrowserRouter>
     <Switch>
       <Route exact path="/" component={Home} />
+      <Route path="/cadastrar" component={DetailsPage} />
 
     </Switch>
   </BrowserRouter>

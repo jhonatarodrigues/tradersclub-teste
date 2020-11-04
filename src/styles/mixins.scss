@@ -1,0 +1,35 @@
+@mixin responsive($rl, $rl2:1){
+  @if($rl2 != 1){
+      @media only screen and (min-width: $rl+"px") and (max-width: $rl2+"px") {
+          @content;
+      }
+  }
+  @else{
+      @media only screen and (min-width: $rl+"px") {
+          @content;
+      }
+  }
+
+}
+
+@mixin animate($s){
+@if($s){
+  transition: all $s+s  ease;
+  -webkit-transition: all $s+s  ease;
+  -o-transition: all $s+s ease;
+  -moz-transition: all $s+s ease;
+  -ms-transition: all $s+s ease;
+}
+}
+
+@mixin placeholder {
+&::-webkit-input-placeholder {opacity:1; @content}
+&:-moz-placeholder           {opacity:1; @content}
+&::-moz-placeholder          {opacity:1; @content}
+&:-ms-input-placeholder      {opacity:1; @content}
+}
+
+$browser-context: 20; // Default
+@function em($pixels, $context: $browser-context) {
+@return #{$pixels/$context}rem;
+}

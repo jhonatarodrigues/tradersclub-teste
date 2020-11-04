@@ -1,0 +1,19 @@
+@import '../../styles/global.scss';
+
+.containerLeftBar{
+  background-color: $colorBlueDark;
+  width: em(600);
+  align-items: center;
+  height: 100vh;
+  .logo{
+    text-align: center;
+    padding: em(78) 0;
+    img{
+      @include animate(.2);
+      &:hover{
+        @include animate(.4);
+        opacity: .8;
+      }
+    }
+  }
+}
