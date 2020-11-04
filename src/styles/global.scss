@@ -1,0 +1,19 @@
+@import "variables.scss";
+
+// -- fonts
+.fontRoboto{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+}
+.fontLobster{
+  font-family: 'Lobster Two', cursive;
+  font-weight: 400;
+}
+
+
+body {
+  background-color: $colorBlue;
+  color: $colorWhite;
+  @extend .fontRoboto;
+  font-size: 10px
+}
