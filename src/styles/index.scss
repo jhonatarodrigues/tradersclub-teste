@@ -1,0 +1,22 @@
+@import "global.scss";
+@import "reset.scss";
+
+
+
+// -- initial css
+body {
+  background: $colorBlue;
+  color: $colorWhite;
+  @extend .fontRoboto;
+  font-size: 10px;
+  margin: 0;
+  padding: 0;
+}
+.container{
+  display: flex;
+  flex-direction: row;
+
+  @include responsive($lg){
+		flex-direction: row;
+	}
+}

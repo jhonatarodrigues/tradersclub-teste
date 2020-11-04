@@ -1,5 +1,4 @@
 @import "variables.scss";
-@import "reset.scss";
 @import 'mixins.scss';
 
 // -- fonts
@@ -10,23 +9,4 @@
 .fontLobster{
   font-family: 'Lobster Two', cursive;
   font-weight: 400;
-}
-
-
-// -- global css
-body {
-  background: $colorBlue;
-  color: $colorWhite;
-  @extend .fontRoboto;
-  font-size: 10px;
-  margin: 0;
-  padding: 0;
-}
-.container{
-  display: flex;
-  flex-direction: row;
-
-  @include responsive($lg){
-		flex-direction: row;
-	}
 }
