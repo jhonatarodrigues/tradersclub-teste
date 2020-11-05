@@ -6,7 +6,7 @@ import './styles.scss';
 
 interface OwnProps {
   active?: boolean,
-  mensagem?: boolean,
+  mensagem?: string,
   sucess?: boolean,
 }
 

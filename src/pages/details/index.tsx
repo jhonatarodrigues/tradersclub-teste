@@ -27,6 +27,11 @@ interface DispatchProps {
 
 interface IState {
   inputs: Car,
+  modal: {
+    active: boolean,
+    mensagem: string,
+    success: boolean,
+  }
 }
 
 type Props = StateProps & DispatchProps;
@@ -46,12 +51,20 @@ class DetailsPage extends Component<Props, IState> {
         km: 0,
         price: 0,
       },
+      modal: {
+        active: false,
+        mensagem: '',
+        success: false,
+      },
     };
   }
 
-  // eslint-disable-next-line camelcase
-  UNSAFE_componentWillReceiveProps(nextProps: Props) {
-    const { location } = nextProps;
+  componentDidMount() {
+    this.preenchInfo();
+  }
+
+  preenchInfo() {
+    const { location } = this.props;
     if (location.state) {
       const car = location.state;
       this.setState({
@@ -73,6 +86,7 @@ class DetailsPage extends Component<Props, IState> {
     const { car, loadSuccess } = this.props;
     const { inputs } = this.state;
     let newCar = [...car];
+    let mensagemModal = 'Seu carro foi adicionado com sucesso';
     if (inputs.id) {
       // -- edit
       const updateCar = car.map((item) => {
@@ -83,6 +97,7 @@ class DetailsPage extends Component<Props, IState> {
         return item;
       });
       newCar = updateCar;
+      mensagemModal = 'Seu carro foi editado com sucesso';
     } else {
       // -- increment
       newCar = [
@@ -95,11 +110,28 @@ class DetailsPage extends Component<Props, IState> {
     }
 
     loadSuccess(newCar);
+    this.setState({
+      modal: {
+        active: true,
+        mensagem: mensagemModal,
+        success: true,
+      },
+    }, () => {
+      setTimeout(() => {
+        this.setState({
+          modal: {
+            active: false,
+            mensagem: '',
+            success: false,
+          },
+        });
+      }, 6000);
+    });
   }
 
   render() {
     console.log(' === Props >>>>', this.props);
-    const { inputs } = this.state;
+    const { inputs, modal } = this.state;
     // -- mock brands
     const brands = [
       {
@@ -144,7 +176,7 @@ class DetailsPage extends Component<Props, IState> {
 
     return (
       <>
-        <ModalInfo active />
+        <ModalInfo active={modal.active} sucess={modal.success} mensagem={modal.mensagem} />
         <div className="container">
           <LeftBar />
           <div className="containerRight">
@@ -209,10 +241,22 @@ class DetailsPage extends Component<Props, IState> {
                 </div>
                 <div className="line">
                   <div className="field">
-                    <select name="marca">
+                    <select
+                      name="marca"
+                      onChange={(event: React.FormEvent<HTMLSelectElement>) => {
+                        const { value } = event.currentTarget;
+                        this.setState((prevState) => ({
+                          inputs: {
+                            ...prevState.inputs,
+                            brand: value,
+                          },
+                        }));
+                      }}
+                      value={inputs.brand}
+                    >
                       <option value="" disabled selected>Selecione a marca</option>
                       {brands.map((brand) => (
-                        <option value={brand.id}>{brand.name}</option>
+                        <option value={brand.name}>{brand.name}</option>
                       ))}
                     </select>
                   </div>
