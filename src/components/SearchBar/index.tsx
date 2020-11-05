@@ -12,11 +12,12 @@ import * as CarActions from '../../store/ducks/car/actions';
 import './styles.scss';
 
 interface StateProps {
-  car: Car[]
+  car: Car[],
 }
 interface DispatchProps {
   loadRequest(): void,
   loadSuccess(data: Car[]): void,
+  loadSuccessFiltered(data: Car[]): void,
 }
 
 interface OwnProps {
@@ -24,7 +25,6 @@ interface OwnProps {
 }
 interface IState {
   inputSearch: string,
-  mock: Car[],
 }
 
 type Props = StateProps & DispatchProps & OwnProps;
@@ -35,39 +35,21 @@ class SearchBar extends Component<Props, IState> {
 
     this.state = {
       inputSearch: '',
-      mock: [],
     };
   }
 
-  componentDidMount() {
-    const mock = [
-      {
-        brand: 'Chevrolet',
-        color: 'Azul marinho',
-        id: 1,
-        km: 106041,
-        model: 'Celta',
-        price: 11772.22,
-        title: 'Celta Azul 2005 Ar e Direção',
-        year: 2005,
-      },
-
-    ];
-
-    this.setState({
-      mock,
-    }, () => {
-      this.setInfo();
-    });
-  }
-
   setInfo() {
-    const { loadSuccess } = this.props;
-    const { inputSearch, mock } = this.state;
+    const { loadSuccessFiltered, car: cars } = this.props;
+    const { inputSearch } = this.state;
     const lowerInputSearch = inputSearch.toLowerCase();
 
-    if (inputSearch.length > 0) {
-      const info = mock.filter((car) => {
+    console.log(' === inputSearch ===', inputSearch);
+
+    if (inputSearch === '*') {
+      // -- mostra todos os carros
+      loadSuccessFiltered(cars);
+    } else if (inputSearch.length > 0) {
+      const info = cars.filter((car) => {
         if (
           car.brand.toLowerCase().indexOf(lowerInputSearch) >= 0
          || car.title.toLowerCase().indexOf(lowerInputSearch) >= 0
@@ -80,12 +62,12 @@ class SearchBar extends Component<Props, IState> {
       });
 
       if (info.length > 0) {
-        loadSuccess(info);
+        loadSuccessFiltered(info);
       } else {
-        loadSuccess([]);
+        loadSuccessFiltered([]);
       }
     } else {
-      loadSuccess([]);
+      loadSuccessFiltered([]);
     }
   }
 
@@ -129,6 +111,7 @@ class SearchBar extends Component<Props, IState> {
 
 const mapStateToProps = (state: ApplicationState) => ({
   car: state.car.data,
+  carFiltered: state.car.filtered,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(CarActions, dispatch);

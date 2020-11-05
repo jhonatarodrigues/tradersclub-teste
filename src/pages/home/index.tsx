@@ -14,7 +14,8 @@ import LeftBar from '../../components/LeftBar';
 import SearchBar from '../../components/SearchBar';
 
 interface StateProps {
-  car: Car[]
+  car: Car[],
+  carFiltered: Car[],
 }
 interface DispatchProps {
   loadRequest(): void,
@@ -23,20 +24,6 @@ interface DispatchProps {
 type Props = StateProps & DispatchProps;
 
 class Home extends Component<Props> {
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {
-
-    };
-  }
-
-  componentDidMount() {
-    // const { loadRequest } = this.props;
-
-    // loadRequest();
-  }
-
   listCar = (car: Car) => (
     <div>
       <Link to={{
@@ -91,15 +78,15 @@ class Home extends Component<Props> {
   )
 
   renderResult() {
-    const { car } = this.props;
-    console.log(' === car', car);
+    const { carFiltered } = this.props;
+    console.log(' === carFiltered', carFiltered);
 
-    if (car.length === 0) {
+    if (carFiltered.length === 0) {
       return (this.listEmpty());
     }
 
     return (
-      car.map((item) => this.listCar(item))
+      carFiltered.map((item) => this.listCar(item))
     );
   }
 
@@ -121,6 +108,7 @@ class Home extends Component<Props> {
 
 const mapStateToProps = (state: ApplicationState) => ({
   car: state.car.data,
+  carFiltered: state.car.filtered,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(CarActions, dispatch);

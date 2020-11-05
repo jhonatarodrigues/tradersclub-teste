@@ -1,6 +1,7 @@
 import React, { Component, ChangeEvent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
+import { Link } from 'react-router-dom';
 import { ApplicationState } from '../../store';
 import { Car } from '../../store/ducks/car/types';
 import * as CarActions from '../../store/ducks/car/actions';
@@ -20,6 +21,7 @@ interface StateProps {
 }
 interface DispatchProps {
   loadRequest(): void,
+  loadSuccess(data: Car[]): void,
 }
 
 interface IState {
@@ -46,12 +48,6 @@ class DetailsPage extends Component<Props, IState> {
     };
   }
 
-  componentDidMount() {
-    // const { loadRequest } = this.props;
-
-    // loadRequest();
-  }
-
   // eslint-disable-next-line camelcase
   UNSAFE_componentWillReceiveProps(nextProps: Props) {
     const { location } = nextProps;
@@ -69,12 +65,83 @@ class DetailsPage extends Component<Props, IState> {
           price: car.price,
         },
       });
-      console.log(' === car next >>>>', car);
     }
   }
 
-  render() {
+  save() {
+    const { car, loadSuccess } = this.props;
     const { inputs } = this.state;
+    let newCar = [...car];
+    if (inputs.id) {
+      // -- edit
+      const updateCar = car.map((item) => {
+        if (item.id === inputs.id) {
+          return inputs;
+        }
+
+        return item;
+      });
+      newCar = updateCar;
+    } else {
+      // -- increment
+      newCar = [
+        ...car,
+        {
+          ...inputs,
+          id: car.length ? car.length + 1 : 0,
+        },
+      ];
+    }
+
+    loadSuccess(newCar);
+
+    console.log('goll save====', inputs, this.props);
+  }
+
+  render() {
+    console.log(' === Props >>>>', this.props);
+    const { inputs } = this.state;
+    // -- mock brands
+    const brands = [
+      {
+        id: 1,
+        name: 'VW',
+      },
+      {
+        id: 2,
+        name: 'Chevrolet',
+      },
+      {
+        id: 3,
+        name: 'FIAT',
+      },
+      {
+        id: 4,
+        name: 'Ford',
+      },
+      {
+        id: 5,
+        name: 'Nissan',
+      },
+      {
+        id: 6,
+        name: 'Mitsubishi',
+      },
+    ];
+
+    let activeSave = false;
+    if (
+      inputs.title.length > 0 && (
+        inputs.brand.length > 0
+      || inputs.model.length > 0
+      || inputs.year > 0
+      || inputs.color.length > 0
+      || inputs.km > 0
+      || inputs.price > 0
+      )
+    ) {
+      activeSave = true;
+    }
 
     return (
       <div className="container">
@@ -142,7 +209,10 @@ class DetailsPage extends Component<Props, IState> {
               <div className="line">
                 <div className="field">
                   <select name="marca">
-                    <option>vaiii</option>
+                    <option value="" disabled selected>Selecione a marca</option>
+                    {brands.map((brand) => (
+                      <option value={brand.id}>{brand.name}</option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -194,24 +264,30 @@ class DetailsPage extends Component<Props, IState> {
                         },
                       }));
                     }}
-                    value={inputs.price}
+                    value={inputs.price > 0 ? inputs.price : ''}
                   />
                 </div>
                 <div className="field" />
               </div>
               <div className="line">
                 <div className="field">
-                  <button type="button" className="btnAction">
-                    Remover
-                  </button>
-                  <button type="button" className="btnAction">
-                    Cancelar
-                  </button>
+                  {inputs.id ? (
+                    <button type="button" className="btnAction">
+                      Remover
+                    </button>
+                  ) : <></>}
+                  <Link to="/">
+                    <button type="button" className="btnAction">
+                      Cancelar
+                    </button>
+                  </Link>
                 </div>
                 <div className="field flexEnd">
-                  <button type="button" className="btnAction inverter">
-                    Salvar
-                  </button>
+                  {activeSave ? (
+                    <button type="button" className="btnAction inverter" onClick={() => this.save()}>
+                      Salvar
+                    </button>
+                  ) : <></>}
                 </div>
               </div>
             </div>
