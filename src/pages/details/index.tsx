@@ -171,7 +171,6 @@ class DetailsPage extends Component<Props, IState> {
   }
 
   render() {
-    console.log(' === Props >>>>', this.props);
     const { inputs, modal } = this.state;
     // -- mock brands
     const brands = [

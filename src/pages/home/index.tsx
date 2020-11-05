@@ -16,6 +16,9 @@ import SearchBar from '../../components/SearchBar';
 interface StateProps {
   car: Car[],
   carFiltered: Car[],
+  location: {
+    search: string,
+  }
 }
 interface DispatchProps {
   loadRequest(): void,
@@ -23,7 +26,28 @@ interface DispatchProps {
 
 type Props = StateProps & DispatchProps;
 
-class Home extends Component<Props> {
+interface IState {
+  search: string,
+}
+
+class Home extends Component<Props, IState> {
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {
+      search: '',
+    };
+  }
+
+  componentDidMount() {
+    const { location } = this.props;
+    const trataSearch = decodeURI(location.search.replace('?search=', ''));
+
+    this.setState({
+      search: trataSearch,
+    });
+  }
+
   listCar = (car: Car) => (
     <div>
       <Link to={{
@@ -79,7 +103,6 @@ class Home extends Component<Props> {
 
   renderResult() {
     const { carFiltered } = this.props;
-    console.log(' === carFiltered', carFiltered);
 
     if (carFiltered.length === 0) {
       return (this.listEmpty());
@@ -91,11 +114,13 @@ class Home extends Component<Props> {
   }
 
   render() {
+    const { search } = this.state;
+
     return (
       <div className="container">
         <LeftBar />
         <div className="containerRight">
-          <SearchBar />
+          <SearchBar search={search} />
           <div className="containerResults">
             {this.renderResult()}
 

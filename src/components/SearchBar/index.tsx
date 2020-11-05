@@ -21,7 +21,8 @@ interface DispatchProps {
 }
 
 interface OwnProps {
-  pesquisar?: boolean
+  pesquisar?: boolean,
+  search?: string
 }
 interface IState {
   inputSearch: string,
@@ -36,6 +37,14 @@ class SearchBar extends Component<Props, IState> {
     this.state = {
       inputSearch: '',
     };
+  }
+
+  componentDidMount() {
+    const { search } = this.props;
+
+    this.setState({
+      inputSearch: String(search || ''),
+    });
   }
 
   setInfo() {
@@ -90,7 +99,14 @@ class SearchBar extends Component<Props, IState> {
           value={inputSearch}
         />
         {pesquisar ? (
-          <Link to="/" className="linkExpand">
+
+          <Link
+            to={{
+              pathname: '/',
+              search: `?search=${inputSearch}`,
+            }}
+            className="linkExpand"
+          >
             <button type="button">
               Pesquisar
             </button>
