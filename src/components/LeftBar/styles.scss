@@ -5,10 +5,20 @@
   width: em(600);
   align-items: center;
   height: 100vh;
+  @include responsive($xs, $lg){
+    width: 100%;
+    height: auto;
+	}
   .logo{
     text-align: center;
     padding: em(78) 0;
+    @include responsive($xs, $lg){
+      padding: em(30) 0;
+    }
     img{
+      @include responsive($xs, $lg){
+        width: em(50)
+      }
       @include animate(.2);
       &:hover{
         @include animate(.4);

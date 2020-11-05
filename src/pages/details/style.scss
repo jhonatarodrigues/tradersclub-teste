@@ -6,6 +6,11 @@
   display: flex;
   flex-direction: column;
 
+  @include responsive($xs, $lg){
+    width: 100%!important;
+    height: 100%!important;
+  }
+
   .containerResults{
     display: flex;
     flex-direction: column;
@@ -14,16 +19,31 @@
     padding: em(70) em(115);
     overflow-y: auto;
     background-size: cover;
+    @include responsive($xs, $lg){
+      padding: em(50) em(15)!important;
+    }
+
     .titleInfoForm{
       @extend .fontRoboto;
       font-size: em(25);
       margin-bottom: em(40);
+      @include responsive($xs, $lg){
+        font-size: em(20);
+        line-height: em(30);
+      }
     }
     .form{
       padding: 0 em(35);
+      @include responsive($xs, $lg){
+        padding: 0;
+      }
       .line{
         display: flex;
         margin-top: em(60);
+        @include responsive($xs, $lg){
+          margin-top: 0;
+          flex-direction: column;
+        }
         &:first-child{
           margin-top: 0;
         }
@@ -40,6 +60,10 @@
           &:last-child{
             padding-right: 0;
           }
+          @include responsive($xs, $lg){
+            padding: 0;
+            margin-top: em(15);
+          }
           input, select{
             width: 100%;
             border: none;
@@ -53,6 +77,12 @@
             padding-right: em(20);
             @include placeholder{
               color: $colorWhite;
+            }
+            @include responsive($xs, $lg){
+              font-size: em(20);
+              height: em(50);
+              padding-left: em(10);
+              padding-right: em(10);
             }
           }
           select{
@@ -71,6 +101,10 @@
             margin-right: em(20);
             cursor: pointer;
             @include animate(.2);
+            @include responsive($xs, $lg){
+              width: 100%;
+              padding: em(18) em(25);
+            }
             &:last-child{
               margin-right: 0;
             }
@@ -81,6 +115,9 @@
                 background: $colorBlueDark;
                 color: $colorWhite;
                 border-color: $colorBlueDark;
+              }
+              @include responsive($xs, $lg){
+                margin-right: 0;
               }
             }
             &:hover{

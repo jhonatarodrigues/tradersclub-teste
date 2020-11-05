@@ -6,6 +6,11 @@
   display: flex;
   flex-direction: column;
 
+  @include responsive($xs, $lg){
+    width: 100%!important;
+    height: 100%!important;
+  }
+
   .containerResults{
     display: flex;
     flex-direction: column;
@@ -14,10 +19,17 @@
     padding: em(70) em(115);
     overflow-y: auto;
     background-size: cover;
+    @include responsive($xs, $lg){
+      padding: em(50) em(15)!important;
+
+    }
 
     .itemList{
       width: 100%;
       padding: em(45) em(50);
+      @include responsive($xs, $lg){
+        padding: em(25) em(15);
+      }
       .line{
         display: flex;
         justify-content: space-between;
@@ -25,6 +37,9 @@
         margin-top: em(10);
         &:first-child{
           margin-top: 0;
+        }
+        @include responsive($xs, $lg){
+          flex-direction: column;
         }
       }
       .carName,
@@ -34,10 +49,20 @@
         @extend .fontRoboto;
         color: $colorWhite;
         font-size: em(25);
+        @include responsive($xs, $lg){
+          font-size: em(20);
+          margin-top: em(10);
+          &:first-child{
+            margin-top: 0;
+          }
+        }
       }
       .carInfo,
       .ano{
         font-size: em(18);
+        @include responsive($xs, $lg){
+          font-size: em(16);
+        }
       }
       @include animate(.2);
       &:hover{
@@ -56,11 +81,18 @@
       padding: em(100) em(280);
       display: flex;
       justify-content: center;
+      @include responsive($xs, $lg){
+        padding: em(50) em(15);
+      }
       h1{
         @extend .fontLobster;
         font-size: em(120);
         text-align: right;
         line-height: em(150);
+        @include responsive($xs, $lg){
+          font-size: em(45);
+          line-height: em(60);
+        }
         span{
           background-color: rgba($colorBlueLight, .7);
           padding: 0 em(35);

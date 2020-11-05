@@ -16,7 +16,7 @@ body {
   display: flex;
   flex-direction: row;
 
-  @include responsive($lg){
-		flex-direction: row;
+  @include responsive($xs, $lg){
+		flex-direction: column;
 	}
 }

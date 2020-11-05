@@ -7,6 +7,11 @@
   width: 100%;
   display: flex;
   flex-direction: row;
+  @include responsive($xs, $lg){
+    padding: em(20) em(70);
+    flex-direction: column;
+    justify-content: center;
+  }
   input{
     width: 100%;
     height: em(90);
@@ -21,10 +26,19 @@
     @include placeholder() {
       color: $colorWhite;
     };
+
+    @include responsive($xs, $lg){
+      height: em(50);
+      font-size: em(20);
+      margin-right: 0;
+    }
   }
   .linkExpand{
     display: flex;
     align-items: stretch;
+    @include responsive($xs, $lg){
+      justify-content: center;
+    }
   }
   button{
     padding: em(20) em(42);
@@ -38,6 +52,11 @@
     &:hover{
       @include animate(.4);
       opacity: .8;
+    }
+    @include responsive($xs, $lg){
+      padding: em(15) em(30);
+      font-size: em(25);
+      margin-top: em(15);
     }
   }
 }
