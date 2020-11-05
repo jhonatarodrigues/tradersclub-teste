@@ -24,3 +24,15 @@ O teste deve ser escrito preferencialmente em *React*. No entanto, avaliaremos A
 
 Muito obrigado e boa sorte!
 Esperamos tê-lo(a) por aqui em breve!
+
+------
+**Desenvolvimento**
+ - ReactJs
+ - Redux
+ - Redux-Saga (para exemplo como api está mocada não tem tanta utilização).
+ - Typescript
+
+**Obs**
+ - Foi feito duas rotas de acordo com o layout, poderia ser feito em apenas uma mas a idéia é mostrar a navegação entre telas.
+ - Versão mobile
+ - Api mockada direto no INITIAL_STATE do redux.
