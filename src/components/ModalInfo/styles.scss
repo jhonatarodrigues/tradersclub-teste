@@ -1,0 +1,33 @@
+@import '../../styles/global.scss';
+
+.containerModalInfo{
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  background: rgba(#000, .7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .boxModal{
+    width: em(400);
+    height: em(300);
+    background: $colorWhite;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .icon{
+      font-size: em(60);
+    }
+    .info{
+      color: $colorBlueDark;
+      @extend .fontRoboto;
+      font-size: em(20);
+      margin-top: em(15);
+    }
+  }
+}

@@ -43,8 +43,6 @@ class SearchBar extends Component<Props, IState> {
     const { inputSearch } = this.state;
     const lowerInputSearch = inputSearch.toLowerCase();
 
-    console.log(' === inputSearch ===', inputSearch);
-
     if (inputSearch === '*') {
       // -- mostra todos os carros
       loadSuccessFiltered(cars);

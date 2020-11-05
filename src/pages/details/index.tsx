@@ -12,6 +12,7 @@ import './style.scss';
 // -- components
 import LeftBar from '../../components/LeftBar';
 import SearchBar from '../../components/SearchBar';
+import ModalInfo from '../../components/ModalInfo';
 
 interface StateProps {
   car: Car[],
@@ -94,8 +95,6 @@ class DetailsPage extends Component<Props, IState> {
     }
 
     loadSuccess(newCar);
-
-    console.log('goll save====', inputs, this.props);
   }
 
   render() {
@@ -144,157 +143,160 @@ class DetailsPage extends Component<Props, IState> {
     }
 
     return (
-      <div className="container">
-        <LeftBar />
-        <div className="containerRight">
-          <SearchBar pesquisar />
-          <div className="containerResults">
+      <>
+        <ModalInfo active />
+        <div className="container">
+          <LeftBar />
+          <div className="containerRight">
+            <SearchBar pesquisar />
+            <div className="containerResults">
 
-            <div className="titleInfoForm">
-              Formulário
-            </div>
-            <div className="form">
-              <div className="line">
-                <div className="field">
-                  <input
-                    type="text"
-                    name="titulo"
-                    placeholder="Titulo do Carro"
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                      this.setState((prevState) => ({
-                        inputs: {
-                          ...prevState.inputs,
-                          title: event.target.value,
-                        },
-                      }));
-                    }}
-                    value={inputs.title}
-                  />
+              <div className="titleInfoForm">
+                Formulário
+              </div>
+              <div className="form">
+                <div className="line">
+                  <div className="field">
+                    <input
+                      type="text"
+                      name="titulo"
+                      placeholder="Titulo do Carro"
+                      onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                        this.setState((prevState) => ({
+                          inputs: {
+                            ...prevState.inputs,
+                            title: event.target.value,
+                          },
+                        }));
+                      }}
+                      value={inputs.title}
+                    />
+                  </div>
+                </div>
+                <div className="line">
+                  <div className="field">
+                    <input
+                      type="text"
+                      name="modelo"
+                      placeholder="Modelo do Carro"
+                      onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                        this.setState((prevState) => ({
+                          inputs: {
+                            ...prevState.inputs,
+                            model: event.target.value,
+                          },
+                        }));
+                      }}
+                      value={inputs.model}
+                    />
+                  </div>
+                  <div className="field">
+                    <input
+                      type="text"
+                      name="ano"
+                      placeholder="Ano do Carro"
+                      onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                        this.setState((prevState) => ({
+                          inputs: {
+                            ...prevState.inputs,
+                            year: parseInt(event.target.value, 10) || 0,
+                          },
+                        }));
+                      }}
+                      value={inputs.year > 0 ? inputs.year : ''}
+                    />
+                  </div>
+                </div>
+                <div className="line">
+                  <div className="field">
+                    <select name="marca">
+                      <option value="" disabled selected>Selecione a marca</option>
+                      {brands.map((brand) => (
+                        <option value={brand.id}>{brand.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className="line">
+                  <div className="field">
+                    <input
+                      type="text"
+                      name="cor"
+                      placeholder="Cor do Carro"
+                      onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                        this.setState((prevState) => ({
+                          inputs: {
+                            ...prevState.inputs,
+                            color: event.target.value,
+                          },
+                        }));
+                      }}
+                      value={inputs.color}
+                    />
+                  </div>
+                  <div className="field">
+                    <input
+                      type="text"
+                      name="km"
+                      placeholder="Kilometragem do Carro"
+                      onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                        this.setState((prevState) => ({
+                          inputs: {
+                            ...prevState.inputs,
+                            km: parseInt(event.target.value, 10) || 0,
+                          },
+                        }));
+                      }}
+                      value={inputs.km > 0 ? inputs.km : ''}
+                    />
+                  </div>
+                </div>
+                <div className="line">
+                  <div className="field">
+                    <input
+                      type="text"
+                      name="preco"
+                      placeholder="Preço do Carro"
+                      onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                        this.setState((prevState) => ({
+                          inputs: {
+                            ...prevState.inputs,
+                            price: parseInt(event.target.value, 10),
+                          },
+                        }));
+                      }}
+                      value={inputs.price > 0 ? inputs.price : ''}
+                    />
+                  </div>
+                  <div className="field" />
+                </div>
+                <div className="line">
+                  <div className="field">
+                    {inputs.id ? (
+                      <button type="button" className="btnAction">
+                        Remover
+                      </button>
+                    ) : <></>}
+                    <Link to="/">
+                      <button type="button" className="btnAction">
+                        Cancelar
+                      </button>
+                    </Link>
+                  </div>
+                  <div className="field flexEnd">
+                    {activeSave ? (
+                      <button type="button" className="btnAction inverter" onClick={() => this.save()}>
+                        Salvar
+                      </button>
+                    ) : <></>}
+                  </div>
                 </div>
               </div>
-              <div className="line">
-                <div className="field">
-                  <input
-                    type="text"
-                    name="modelo"
-                    placeholder="Modelo do Carro"
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                      this.setState((prevState) => ({
-                        inputs: {
-                          ...prevState.inputs,
-                          model: event.target.value,
-                        },
-                      }));
-                    }}
-                    value={inputs.model}
-                  />
-                </div>
-                <div className="field">
-                  <input
-                    type="text"
-                    name="ano"
-                    placeholder="Ano do Carro"
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                      this.setState((prevState) => ({
-                        inputs: {
-                          ...prevState.inputs,
-                          year: parseInt(event.target.value, 10) || 0,
-                        },
-                      }));
-                    }}
-                    value={inputs.year > 0 ? inputs.year : ''}
-                  />
-                </div>
-              </div>
-              <div className="line">
-                <div className="field">
-                  <select name="marca">
-                    <option value="" disabled selected>Selecione a marca</option>
-                    {brands.map((brand) => (
-                      <option value={brand.id}>{brand.name}</option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-              <div className="line">
-                <div className="field">
-                  <input
-                    type="text"
-                    name="cor"
-                    placeholder="Cor do Carro"
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                      this.setState((prevState) => ({
-                        inputs: {
-                          ...prevState.inputs,
-                          color: event.target.value,
-                        },
-                      }));
-                    }}
-                    value={inputs.color}
-                  />
-                </div>
-                <div className="field">
-                  <input
-                    type="text"
-                    name="km"
-                    placeholder="Kilometragem do Carro"
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                      this.setState((prevState) => ({
-                        inputs: {
-                          ...prevState.inputs,
-                          km: parseInt(event.target.value, 10) || 0,
-                        },
-                      }));
-                    }}
-                    value={inputs.km > 0 ? inputs.km : ''}
-                  />
-                </div>
-              </div>
-              <div className="line">
-                <div className="field">
-                  <input
-                    type="text"
-                    name="preco"
-                    placeholder="Preço do Carro"
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                      this.setState((prevState) => ({
-                        inputs: {
-                          ...prevState.inputs,
-                          price: parseInt(event.target.value, 10),
-                        },
-                      }));
-                    }}
-                    value={inputs.price > 0 ? inputs.price : ''}
-                  />
-                </div>
-                <div className="field" />
-              </div>
-              <div className="line">
-                <div className="field">
-                  {inputs.id ? (
-                    <button type="button" className="btnAction">
-                      Remover
-                    </button>
-                  ) : <></>}
-                  <Link to="/">
-                    <button type="button" className="btnAction">
-                      Cancelar
-                    </button>
-                  </Link>
-                </div>
-                <div className="field flexEnd">
-                  {activeSave ? (
-                    <button type="button" className="btnAction inverter" onClick={() => this.save()}>
-                      Salvar
-                    </button>
-                  ) : <></>}
-                </div>
-              </div>
-            </div>
 
+            </div>
           </div>
         </div>
-      </div>
+      </>
     );
   }
 }
