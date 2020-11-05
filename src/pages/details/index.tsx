@@ -129,6 +129,47 @@ class DetailsPage extends Component<Props, IState> {
     });
   }
 
+  removeCar() {
+    const { car, loadSuccess } = this.props;
+    const { inputs } = this.state;
+
+    const newCar = car.filter((item) => {
+      if (item.id === inputs.id) {
+        return false;
+      }
+      return true;
+    });
+
+    loadSuccess(newCar);
+    this.setState({
+      modal: {
+        active: true,
+        mensagem: 'Seu carro foi removido com sucesso',
+        success: true,
+      },
+      inputs: {
+        id: 0,
+        title: '',
+        model: '',
+        year: 0,
+        brand: '',
+        color: '',
+        km: 0,
+        price: 0,
+      },
+    }, () => {
+      setTimeout(() => {
+        this.setState({
+          modal: {
+            active: false,
+            mensagem: '',
+            success: false,
+          },
+        });
+      }, 6000);
+    });
+  }
+
   render() {
     console.log(' === Props >>>>', this.props);
     const { inputs, modal } = this.state;
@@ -317,7 +358,7 @@ class DetailsPage extends Component<Props, IState> {
                 <div className="line">
                   <div className="field">
                     {inputs.id ? (
-                      <button type="button" className="btnAction">
+                      <button type="button" className="btnAction" onClick={() => this.removeCar()}>
                         Remover
                       </button>
                     ) : <></>}
