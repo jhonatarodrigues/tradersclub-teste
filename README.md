@@ -36,3 +36,7 @@ Esperamos tê-lo(a) por aqui em breve!
  - Foi feito duas rotas de acordo com o layout, poderia ser feito em apenas uma mas a idéia é mostrar a navegação entre telas.
  - Versão mobile
  - Api mockada direto no INITIAL_STATE do redux.
+
+**Para Executar**
+ - yarn install (para instalar as dependências)
+ - yarn start (para executar o bundle)
