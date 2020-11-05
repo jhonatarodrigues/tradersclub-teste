@@ -18,12 +18,16 @@ interface DispatchProps {
   loadRequest(): void,
   loadSuccess(data: Car[]): void,
 }
+
+interface OwnProps {
+  pesquisar?: boolean
+}
 interface IState {
   inputSearch: string,
   mock: Car[],
 }
 
-type Props = StateProps & DispatchProps;
+type Props = StateProps & DispatchProps & OwnProps;
 
 class SearchBar extends Component<Props, IState> {
   constructor(props: Props) {
@@ -87,6 +91,7 @@ class SearchBar extends Component<Props, IState> {
 
   render() {
     const { inputSearch } = this.state;
+    const { pesquisar } = this.props;
 
     return (
       <div className="searchBar">
@@ -104,11 +109,19 @@ class SearchBar extends Component<Props, IState> {
           autoComplete="false"
           value={inputSearch}
         />
-        <Link to="/cadastrar" className="linkExpand">
-          <button type="button">
-            Cadastrar
-          </button>
-        </Link>
+        {pesquisar ? (
+          <Link to="/" className="linkExpand">
+            <button type="button">
+              Pesquisar
+            </button>
+          </Link>
+        ) : (
+          <Link to="/cadastrar" className="linkExpand">
+            <button type="button">
+              Cadastrar
+            </button>
+          </Link>
+        )}
       </div>
     );
   }

@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import {
-  Link,
-} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ApplicationState } from '../../store';
 import { Car } from '../../store/ducks/car/types';
 import * as CarActions from '../../store/ducks/car/actions';
@@ -41,7 +39,11 @@ class Home extends Component<Props> {
 
   listCar = (car: Car) => (
     <div>
-      <Link to="/cadastrar">
+      <Link to={{
+        pathname: '/cadastrar',
+        state: car,
+      }}
+      >
         <div className="itemList">
           <div className="line">
             <div className="carName">

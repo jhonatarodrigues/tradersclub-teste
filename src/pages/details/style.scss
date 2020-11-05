@@ -7,7 +7,6 @@
   flex-direction: column;
 
   .containerResults{
-
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -15,56 +14,70 @@
     padding: em(70) em(115);
     overflow-y: auto;
     background-size: cover;
-
-    .itemList{
-      width: 100%;
-      padding: em(45) em(50);
+    .titleInfoForm{
+      @extend .fontRoboto;
+      font-size: em(25);
+      margin-bottom: em(40);
+    }
+    .form{
+      padding: 0 em(35);
       .line{
         display: flex;
-        justify-content: space-between;
-        width: 100%;
-        margin-top: em(10);
+        margin-top: em(60);
         &:first-child{
           margin-top: 0;
         }
-      }
-      .carName,
-      .carInfo,
-      .ano,
-      .preco{
-        @extend .fontRoboto;
-        color: $colorWhite;
-        font-size: em(25);
-      }
-      .carInfo,
-      .ano{
-        font-size: em(18);
-      }
-      @include animate(.2);
-      &:hover{
-        @include animate(.4);
-        background: rgba($colorWhite, .1);
-      }
-    }
-    .divisor{
-      display: block;
-      width: 100%;
-      height: 1px;
-      background: $colorWhite;
-      opacity: .3;
-    }
-    .emptyList{
-      padding: em(100) em(280);
-      display: flex;
-      justify-content: center;
-      h1{
-        @extend .fontLobster;
-        font-size: em(120);
-        text-align: right;
-        line-height: em(150);
-        span{
-          background-color: rgba($colorBlueLight, .7);
-          padding: 0 em(35);
+        .field{
+          display: flex;
+          width: 100%;
+          padding: 0 em(40);
+          &.flexEnd{
+            justify-content: flex-end;
+          }
+          &:first-child{
+            padding-left: 0;
+          }
+          &:last-child{
+            padding-right: 0;
+          }
+          input, select{
+            width: 100%;
+            border: none;
+            background: none;
+            border-bottom: 1px solid $colorWhite;
+            height: em(70);
+            color: $colorWhite;
+            @extend .fontRoboto;
+            font-size: em(30);
+            padding-left: em(20);
+            padding-right: em(20);
+            @include placeholder{
+              color: $colorWhite;
+            }
+          }
+          select{
+            border: 1px solid $colorWhite;
+            border-radius: 8px;
+          }
+          .btnAction{
+            padding: em(18) em(38);
+            background: none;
+            border: 1px solid $colorWhite;
+            border-radius: 8px;
+            color: $colorWhite;
+            @extend .fontRoboto;
+            font-weight: 700;
+            font-size: em(25);
+            margin-right: em(20);
+            &:last-child{
+              margin-right: 0;
+            }
+
+            &.inverter{
+              background: $colorWhite;
+              color: $colorBlueDark;
+            }
+          }
         }
       }
     }
